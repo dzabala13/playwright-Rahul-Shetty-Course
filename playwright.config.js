@@ -17,12 +17,12 @@ export default defineConfig({
 
   timeout : 30*1000,
   expect : {
-    timeout : 30*1000
+    timeout : 5*1000
   },
 
   reporter: 'html',
   use: {
-    browserName:'firefox',
+    browserName:'chromium',
     headless : false
   },
 });
