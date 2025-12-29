@@ -29,7 +29,7 @@ test('has title', async ({ page }) => {
 
 });
 
-test.only('First test on web application using type clicking and grap the text of elements', async ({ page }) => {
+test('First test on web application using type clicking and grap the text of elements', async ({ page }) => {
   await page.goto('https://rahulshettyacademy.com/loginpagePractise/');
     await page.locator('#username').fill('rahulshetty');
     await page.locator('[type="password"]').fill('learning');
@@ -48,6 +48,44 @@ test.only('First test on web application using type clicking and grap the text o
 
     // remrmeber that each assertion will be wait until the timeout that you define in playwright to passs in another way a timeout will be throw out
     await expect(page.locator('div[style*="block"]')).toContainText('Incorrect');
+
+
+
+});
+
+
+test.only('FUnderstanding better the syncronizations mechanism', async ({ page }) => {
+  await page.goto('https://rahulshettyacademy.com/loginpagePractise/');
+
+  // web elements you cand define them at the begining , where are you defining the web elememnts you can ommit the await word
+    const loguin = page.locator('#username');
+    const password =  page.locator('[type="password"]');
+    const loguinButton = page.locator('.btn.btn-info.btn-md');
+
+
+    await loguin.fill('rahulshetty');
+    await password.fill('learning');
+    await loguinButton.click();
+    console.log( await page.locator('div[style*="block"]').textContent());
+    await expect(page.locator('div[style*="block"]')).toContainText('Incorrect');
+
+    // when you send the comand fill('') with an empty string that will clean the text box 
+    await loguin.fill('');
+    await loguin.fill('rahulshettyacademy');
+    await loguinButton.click();
+
+    // when you have a selector that return many elements you can use the method first to get just the firs resutl 
+    //returned 
+    console.log(await page.locator('.card-body a').first().textContent());
+    //// As well you have the opportunitu to use nth(#) which is helpful to get one specfici result from the results returned 
+    console.log(await page.locator('.card-body a').nth(1).textContent());
+
+    // here you need to pay attention that since this allTextContents() method returns several values it does not have an autowait
+    // it just take the current status of the DOM and take the values if there is not values it will returns a empty list
+    // this is reason if we just runt this part without run the method textContent() before we will get a empty list since the page has not fully loaded yet.
+    // this is beacuse textContent() solve the problem, beacuse this command whether has autowait.
+    const allItems = await page.locator('.card-body a').allTextContents();
+    console.log(allItems)
 
 
 
