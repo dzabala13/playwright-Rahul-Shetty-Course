@@ -54,14 +54,13 @@ test('First test on web application using type clicking and grap the text of ele
 });
 
 
-test.only('FUnderstanding better the syncronizations mechanism', async ({ page }) => {
+test('FUnderstanding better the syncronizations mechanism', async ({ page }) => {
   await page.goto('https://rahulshettyacademy.com/loginpagePractise/');
 
   // web elements you cand define them at the begining , where are you defining the web elememnts you can ommit the await word
     const loguin = page.locator('#username');
     const password =  page.locator('[type="password"]');
     const loguinButton = page.locator('.btn.btn-info.btn-md');
-
 
     await loguin.fill('rahulshetty');
     await password.fill('learning');
@@ -86,7 +85,33 @@ test.only('FUnderstanding better the syncronizations mechanism', async ({ page }
     // this is beacuse textContent() solve the problem, beacuse this command whether has autowait.
     const allItems = await page.locator('.card-body a').allTextContents();
     console.log(allItems)
-
-
-
 });
+
+
+test.only('Dropdowns radio buttons and Checkboxes',async ({ page }) => {
+
+await page.goto('https://rahulshettyacademy.com/loginpagePractise/')
+
+
+// when you want to select a value from a dropdowns you need first select the drowpdown and then 
+// you need send the option that you want to select 
+await page.locator('select.form-control').selectOption('Consultant');
+
+// for selecting a radiobutton you just need to locate the element and send a click over it 
+await page.locator('.radiotextsty ~ [value="user"]').click();
+await page.locator('#okayBtn').click();
+await expect(page.locator('.radiotextsty ~ [value="user"]')).toBeChecked();
+
+
+// when you are working wiht checkboxes you can selected or checked it just makin a click over it
+// one the another hand if you want to unchecked it you can use the method unchecked(), although you can 
+// use again just making click over it to unchecked it.
+await page.locator('#terms').click();
+await expect(page.locator('#terms')).toBeChecked();
+await page.locator('#terms').uncheck();
+//await page.locator('#terms').click();
+await expect(page.locator('#terms')).not.toBeChecked();
+
+})
+
+/// important try to uncheck a checkbox making double click
