@@ -1,5 +1,6 @@
 // @ts-check
 import {  test, expect } from '@playwright/test';
+import { type } from 'os';
 
 
 test('Understading hte browser context ', async ({ browser }) => {
@@ -88,7 +89,7 @@ test('FUnderstanding better the syncronizations mechanism', async ({ page }) => 
 });
 
 
-test.only('Dropdowns radio buttons and Checkboxes',async ({ page }) => {
+test('Dropdowns radio buttons and Checkboxes',async ({ page }) => {
 
 await page.goto('https://rahulshettyacademy.com/loginpagePractise/')
 
@@ -114,4 +115,27 @@ await expect(page.locator('#terms')).not.toBeChecked();
 
 })
 
-/// important try to uncheck a checkbox making double click
+test.only('how to handle Child windows and Tabs in playwright', async ({ browser }) => {
+
+  const context = await browser.newContext();
+  const page = await context.newPage();
+
+  await page.goto('https://rahulshettyacademy.com/loginpagePractise/');
+  const hiperlink= page.locator('[href*="documents-request"]');
+
+  const [newPage] = await Promise.all([context.waitForEvent('page'),
+                                                hiperlink.click()]);
+
+  const email=await newPage.locator('.red a').textContent();
+  // @ts-ignore
+  const domain = email.split("@")[0].split(' ')[0];
+
+  await page.locator('#username').fill(domain);
+
+  console.log(await page.locator('#username').inputValue())
+
+
+
+
+
+});
