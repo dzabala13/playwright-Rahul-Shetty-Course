@@ -141,50 +141,47 @@ test.only('first end to end testing', async ({page}) => {
   const username = 'test123daniel@email.com';
   const password = '123password'
   const producName = 'ZARA COAT 3'
-  await page.locator('#userEmail').fill(username);
-  await page.locator('#userPassword').fill(password);
-  await page.locator('#login').click();
+
+  await page.getByPlaceholder("email@example.com").fill(username);
+  await page.getByPlaceholder("enter your passsword").fill(password);
+  await page.getByRole("button", {name:"Login"}).click();
 
   await page.locator("img.card-img-top").first().waitFor();
-  //await page.locator(`//*[@class='card-body']//b[contains(text(),'${producName}')]/../../button/i[@class='fa fa-shopping-cart']`).click();
-  //await page.locator(`//*[@class='card-body']//b`).getByText(producName).locator(`/../../button/i[@class='fa fa-shopping-cart']`).click()
- // const items = await page.locator('.card-body').filter()
-//
- // await items.filter({ has: page.locator('b').getByText(producName) }).locator('button').click()
+  await page.waitForLoadState("networkidle");
+
 
    await page.locator('.card-body')
     .filter({ hasText: producName }) // Simplest way to filter by text anywhere in the card
     .getByRole('button', { name: 'Add To Cart' })
     .click();
 
-
-  await page.locator('[routerlink*="cart"]').click();
-  await page.locator("img.itemImg").first().waitFor();
-  await expect(page.locator(`h3:has-text("${producName}")`)).toBeVisible();
-  await page.locator('button.btn-primary:has-text("Checkout")').click();
+  await page.getByRole("listitem").getByRole("button",{name:"Cart"}).click();
   
-  await page.locator(`[placeholder*='Country']`).pressSequentially('Ind', {delay : 150});
-  const dropdown = page.locator(".ta-results");
-  await dropdown.waitFor();
-  await dropdown.locator('button').getByText(' India', { exact: true }).click();
-  await page.locator('.btnn.action__submit').click();
+  await page.locator("img.itemImg").first().waitFor();
+  
+  await expect(page.getByText("ZARA COAT 3")).toBeVisible();
+  await page.getByRole("button",{name:"Checkout"}).click(); 
+  
+  await page.getByPlaceholder("Select Country").pressSequentially('Ind', {delay : 150});
+  await page.getByRole("button",{name:"India"}).last().click();
+  await page.getByText("PLACE ORDER").click();
 
 
-  await expect(page.locator('.hero-primary')).toHaveText(' Thankyou for the order. ')
+  await expect(page.getByText("Thankyou for the order.")).toBeVisible();
 
   //const orderID  = await page.locator('label.ng-star-inserted').textContent();
   const orderID  = (await page.locator('label.ng-star-inserted').textContent()) ?? '';
 
   console.log(orderID);
 
+  // here you can have que the li items using the role listitems and then filter the buttons by name that is so usefull
+await page.getByRole("listitem").getByRole("button", {name:"ORDERS"}).click();  
+await page.locator('table thead').waitFor();
 
-  await page.locator("button[routerlink*='myorders']").click()
-  await page.locator('table thead').waitFor();
-
-  const rows = await page.locator('tbody tr');
+ /* const rows = await page.locator('tbody tr');
 
   // Rahul shetty version
-  /*const rows = await page.locator('tbody tr');
+  const rows = await page.locator('tbody tr');
 
   for (let i= 0 ; i< await rows.count(); i++) {
 
