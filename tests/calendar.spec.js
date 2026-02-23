@@ -26,7 +26,6 @@ and since we are not using webelements we can use ToContentText()
 */
 
 const date_filled_up= page.locator(".react-date-picker__inputGroup__input");
-await page.pause();
 
 const expected_date= [motnh,day, year];
 for (let i=0; i< expected_date.length; i++) {

@@ -135,7 +135,7 @@ test('how to handle Child windows and Tabs in playwright', async ({ browser }) =
   console.log(await page.locator('#username').inputValue())
 });
 
-test.only('first end to end testing', async ({page}) => {
+test('first end to end testing', async ({page}) => {
 
   await page.goto('https://rahulshettyacademy.com/client');
   const username = 'test123daniel@email.com';
