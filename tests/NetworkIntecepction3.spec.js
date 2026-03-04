@@ -41,16 +41,8 @@ test('FUnderstanding better the syncronizations mechanism', async ({ page }) => 
   await loguin.fill('rahulshettyacademy');
   await loguinButton.click();
 
-  // when you have a selector that return many elements you can use the method first to get just the firs resutl 
-  //returned 
   console.log(await page.locator('.card-body a').first().textContent());
-  //// As well you have the opportunitu to use nth(#) which is helpful to get one specfici result from the results returned 
   console.log(await page.locator('.card-body a').nth(1).textContent());
-
-  // here you need to pay attention that since this allTextContents() method returns several values it does not have an autowait
-  // it just take the current status of the DOM and take the values if there is not values it will returns a empty list
-  // this is reason if we just runt this part without run the method textContent() before we will get a empty list since the page has not fully loaded yet.
-  // this is beacuse textContent() solve the problem, beacuse this command whether has autowait.
   const allItems = await page.locator('.card-body a').allTextContents();
   console.log(allItems)
 });
