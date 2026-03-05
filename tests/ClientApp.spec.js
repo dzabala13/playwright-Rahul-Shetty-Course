@@ -1,7 +1,7 @@
 import {  test, expect } from '@playwright/test';
 
 
-test('Understading hte browser context ', async ({ page }) => {
+test('Understading the browser context ', async ({ page }) => {
 
     const email = "test123daniel@email.com";
     const productName = 'zara coat 3';
