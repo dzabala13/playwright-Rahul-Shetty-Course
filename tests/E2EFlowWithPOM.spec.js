@@ -6,22 +6,18 @@ import {POManager} from '../pageObjects/POMonager'
 
 test('first end to end testing', async ({page}) => {
 
-  //const pomanager = new POManager(page);
+  const pomanager = new POManager(page);
 
   const username = 'test123daniel@email.com';
   const password = '123password'
   const producName = 'ZARA COAT 3'
 
-  const loginPage = new LoginPage(page);
-  const dashboardPage = new DashboardPage(page);
+  await pomanager.loginPage.goTo();
+  await pomanager.loginPage.validateLogin(username,password);
 
 
-  await loginPage.goTo();
-  await loginPage.validateLogin(username,password);
-
-
-  await dashboardPage.addProductTocart(producName);
-  await dashboardPage.goToCart();
+  await pomanager.dashboardPage.addProductTocart(producName);
+  await pomanager.dashboardPage.goToCart();
   
 
 
