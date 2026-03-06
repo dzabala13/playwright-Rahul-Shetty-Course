@@ -5,10 +5,12 @@ constructor(page){
     this.page = page
     this.porductCart = page.locator('.card-body');
     this.goToCartButton = page.getByRole("listitem").getByRole("button",{name:"Cart"});
+    this.imageProduct= page.locator("img.itemImg");
 }
 
 async goToCart() {
       await this.goToCartButton.click();
+      await this.imageProduct.first().waitFor();
 
 }
 async addProductTocart(producName) {
