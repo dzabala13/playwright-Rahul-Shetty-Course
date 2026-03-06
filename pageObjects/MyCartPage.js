@@ -13,8 +13,8 @@ class MyCartPage {
     async goToCheckout() {
         await this.checkoutButton.click();
     }
-    async validateProduct(producName) {
-        await expect(this.page.getByText("ZARA COAT 3")).toBeVisible();
+    async validateProduct(productName) {
+        await expect(this.page.getByText(productName)).toBeVisible();
 
 
     }

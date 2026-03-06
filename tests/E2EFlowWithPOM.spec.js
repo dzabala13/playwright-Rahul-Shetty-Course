@@ -11,26 +11,23 @@ import { POManager } from '../pageObjects/POMonager'
 *    lo que está en module.exports)  archivo en disco)
  */
 
+import placeOrderTestData from './utils/placeOrderTestData.json';
+
 test('first end to end testing', async ({ page }) => {
 
   const pomanager = new POManager(page);
-
-  const username = 'test123daniel@email.com';
-  const password = '123password'
-  const producName = 'ZARA COAT 3'
-  const countryName = 'India';
-   
+  const placeOrderTestDataJson = JSON.parse(JSON.stringify(placeOrderTestData));   
 
   await pomanager.loginPage.goTo();
-  await pomanager.loginPage.validateLogin(username, password);
+  await pomanager.loginPage.validateLogin(placeOrderTestDataJson.username, placeOrderTestDataJson.password);
 
-  await pomanager.dashboardPage.addProductTocart(producName);
+  await pomanager.dashboardPage.addProductTocart(placeOrderTestDataJson.productName);
   await pomanager.dashboardPage.goToCart();
 
-  await pomanager.myCartPage.validateProduct(producName);
+  await pomanager.myCartPage.validateProduct(placeOrderTestDataJson.productName);
   await pomanager.myCartPage.goToCheckout();
 
-  await pomanager.orderPage.selectCountry(countryName);
+  await pomanager.orderPage.selectCountry(placeOrderTestDataJson.countryName);
   await pomanager.orderPage.placeOrder();
 
   await pomanager.orderConfirmationPage.validationOrderBookedCorrectly();

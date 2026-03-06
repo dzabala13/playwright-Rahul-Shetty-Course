@@ -13,9 +13,9 @@ async goToCart() {
       await this.imageProduct.first().waitFor();
 
 }
-async addProductTocart(producName) {
+async addProductTocart(productName) {
    await this.porductCart
-    .filter({ hasText: producName }) // Simplest way to filter by text anywhere in the card
+    .filter({ hasText: productName }) // Simplest way to filter by text anywhere in the card
     .getByRole('button', { name: 'Add To Cart' })
     .click();
 }
