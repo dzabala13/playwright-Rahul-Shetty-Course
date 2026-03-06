@@ -13,10 +13,14 @@ import { POManager } from '../pageObjects/POMonager'
 
 import placeOrderTestData from './utils/placeOrderTestData.json';
 
-test('first end to end testing', async ({ page }) => {
+const placeOrdersTestDataJsons = JSON.parse(JSON.stringify(placeOrderTestData));   
+
+for(const placeOrderTestDataJson of placeOrdersTestDataJsons){
+
+  test(`first end to end testing for ${placeOrderTestDataJson.productName}`, async ({ page }) => {
 
   const pomanager = new POManager(page);
-  const placeOrderTestDataJson = JSON.parse(JSON.stringify(placeOrderTestData));   
+  
 
   await pomanager.loginPage.goTo();
   await pomanager.loginPage.validateLogin(placeOrderTestDataJson.username, placeOrderTestDataJson.password);
@@ -39,3 +43,5 @@ test('first end to end testing', async ({ page }) => {
   console.log(await page.locator('div.col-text.-main').textContent())
 
 })
+}
+

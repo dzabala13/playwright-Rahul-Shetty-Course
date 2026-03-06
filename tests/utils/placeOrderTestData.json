@@ -1,6 +1,13 @@
-{
+[{
     "username": "test123daniel@email.com",
     "password": "123password",
     "productName": "ZARA COAT 3",
     "countryName": "India"
+},
+{
+    "username": "test123daniel@email.com",
+    "password": "123password",
+    "productName": "ADIDAS ORIGINAL",
+    "countryName": "India"
 }
+]
