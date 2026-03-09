@@ -2,6 +2,8 @@
 import { test, expect } from '@playwright/test';
 import { POManager } from '../pageObjects/POMonager'
 import { customTest } from './utils/test-base';
+import {Tags} from './support/tags';
+
 /** remeber that for import the name of the object of module that you are importin should be the same that you define 
  * as name of the class and the name that you use in the export sentence.
  * 
@@ -13,6 +15,7 @@ import { customTest } from './utils/test-base';
  */
 
 import placeOrderTestData from './utils/placeOrderTestData.json';
+
 
 /** 
  * here you can put 'serial' or 'parallel' or 'default', and that is to configure the way that the test cases will be executed
@@ -31,7 +34,9 @@ const placeOrdersTestDataJsons = JSON.parse(JSON.stringify(placeOrderTestData));
 
 for (const placeOrderTestDataJson of placeOrdersTestDataJsons) {
 
-  test(`first end to end testing for ${placeOrderTestDataJson.productName}`, async ({ page }) => {
+  test(`first end to end testing for ${placeOrderTestDataJson.productName}`,
+    { tag: [ Tags.Smoke] }, 
+    async ({ page }) => {
 
     const pomanager = new POManager(page);
 
@@ -63,7 +68,9 @@ for (const placeOrderTestDataJson of placeOrdersTestDataJsons) {
 // and that fixture is an object that contains the data for the order, and that data is used in the test case, and that is a way to manage
 //  the test data in a more efficient way, and also to avoid hardcoding the data in the test case, and also to make the test case more 
 // readable and maintainable.
-customTest('test case using a new fixture for managin the test data', async ({ page, testDataForOrder }) => {
+customTest('test case using a new fixture for managin the test data',
+   { tag: [ Tags.Functional] }
+  , async ({ page, testDataForOrder }) => {
 
   const pomanager = new POManager(page);
 
