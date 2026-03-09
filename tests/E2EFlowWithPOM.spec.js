@@ -14,8 +14,19 @@ import { customTest } from './utils/test-base';
 
 import placeOrderTestData from './utils/placeOrderTestData.json';
 
-
-
+/** 
+ * here you can put 'serial' or 'parallel' or 'default', and that is to configure the way that the test cases will be executed
+ * - 'serial' means that the test cases will be executed one after another, and that is useful when you have test cases that are dependent 
+ *   on each other, or when you want to execute the test cases in a specific order, and that is the case of this test file, 
+ * - 'parallel' means that all the test cases in this file will be executed in parallel, and that is useful when you have test cases that are independent
+ * 
+ *  here you need understand how the parallelims work in playwright, remember that a workers is a execution process for a test file,
+ *  and that means that if you have 4 test files and you configure the parallelism to 4, then each test file will be executed in a different worker,
+ *  but by default playwright will execute each test case of each test file in the same worker that makes that the test case will be executed 
+ *  one by one, and that is because the default parallelism is 1, but if you configure the parallelism in a specific test file so you can execute 
+ *  the test cases in that file in parallel.
+ */
+test.describe.configure({mode : 'serial'}); 
 const placeOrdersTestDataJsons = JSON.parse(JSON.stringify(placeOrderTestData));
 
 for (const placeOrderTestDataJson of placeOrdersTestDataJsons) {
